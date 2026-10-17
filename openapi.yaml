@@ -1,0 +1,46 @@
+openapi: 3.1.0
+info:
+  title: SynomosAI Governance MCP — HTTP Bridge (OpenAPI)
+  version: 1.1.0
+  description: |
+    HTTP 视角的治理工具接口（与 MCP stdio 等价的 REST 映射）。
+    授权：签证门禁（SYNOSMOSAI_REQUIRE_VISA）启用时，所有 /tools/{name} 调用须携带有效签证。
+    自评性质，非第三方认证。
+  contact:
+    name: SynomosAI
+paths:
+  /tools/a3_assess:
+    post:
+      summary: A³ 四维评分卡（AI 造/改 AI 放行判定）
+      responses:
+        "200": { description: 评分卡 + trace_id }
+  /tools/audit_evidence_chain:
+    post:
+      summary: ISO/IEC 42001 + NIST 六类证据工件模板
+      responses:
+        "200": { description: 模板集 + trace_id }
+  /tools/compliance_checklist:
+    post:
+      summary: 合规清单（EU AI Act 2024/1689 / GB/Z 185 参考 / PIPL·GDPR）
+      responses:
+        "200": { description: 清单 + trace_id }
+  /tools/passport_lookup:
+    post:
+      summary: 护照/身份码查询（本地台账）
+      responses:
+        "200": { description: 查询结果 + trace_id }
+  /tools/gov_scan:
+    post:
+      summary: 文本体检（PII/凭据/本地路径/密钥特征）
+      responses:
+        "200": { description: findings + trace_id }
+  /visa/verify:
+    post:
+      summary: 签证校验（active 且期限内方可调用）
+      responses:
+        "200": { description: 判定结果 }
+x-ubic:
+  faces: [Governance]
+  installByConsent: AI may request, human approves (A3 Law II)
+  visaGate: { env: SYNOSMOSAI_REQUIRE_VISA, rejectCode: -32001 }
+  scope: self-assessment, not third-party certification
