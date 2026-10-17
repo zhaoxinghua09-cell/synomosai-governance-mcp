@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synomosai-governance-mcp"
+version = "1.2.0"
+description = "SynomosAI Governance MCP — AI governance assessment tools for AI agents (A³ scorecard, ISO 42001 evidence chain, compliance checklist, passport lookup, PII scan, LGD knowledge). Pure stdlib, zero deps, stdio + Streamable HTTP."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "SynomosAI", email = "contact@synomos.ai" }]
+keywords = ["mcp", "ai-governance", "a3-laws", "evidence-chain", "compliance", "iso-42001"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+Homepage = "https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp"
+Source = "https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp"
+
+[project.scripts]
+synomosai-governance = "governance_mcp_server:main"
+
+[tool.setuptools]
+py-modules = ["governance_mcp_server"]
