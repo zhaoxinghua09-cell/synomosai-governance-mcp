@@ -1,0 +1,95 @@
+{
+  "name": "synomosai-governance-mcp",
+  "displayName": "SynomosAI AI 治理 MCP｜A³评估·合规清单·证据链·治理扫描",
+  "version": "1.1.0",
+  "description": "AI 治理评估 MCP 连接器（6 个评估类工具）：A³ 四维评分卡（AI 造/改 AI 放行判定）、ISO/IEC 42001 + NIST AI RMF 六类证据工件模板、EU AI Act 2024/1689 相关条款与 GB/Z 185 参考的合规清单、技能/智能体身份码溯源查询、通用治理/PII/凭据/指纹扫描（可选指名名单）、LGD 全程治理论知识端点。纯 stdlib、零依赖、零网络外发、本地闭环；输出为评估/取证产物，非第三方认证。",
+  "description_en": "AI governance evaluation MCP connector (6 assessment-only tools): A³ four-dimension scorecard, ISO/IEC 42001 + NIST AI RMF evidence-chain templates, compliance checklist against EU AI Act 2024/1689 clauses and GB/Z 185, identity/passport lookup, generic governance/PII/credential/fingerprint text scan with optional name list, and an LGD lifecycle-governance knowledge endpoint. Pure stdlib, zero dependency, zero network egress, fully local; outputs are assessment artifacts, not third-party certification.",
+  "category": "AI 治理 / 合规评估",
+  "type": "mcp",
+  "author": "SynomosAI",
+  "maintainer": "SynomosAI",
+  "license": "MIT",
+  "tools": [
+    {
+      "name": "audit_evidence_chain",
+      "description": "生成 ISO/IEC 42001 + NIST AI RMF 可审计证据工件模板（决策日志/风险登记册/模型卡/变更记录/人类监督证明/事件处置台账）"
+    },
+    {
+      "name": "a3_assess",
+      "description": "A³ 法则四维评分卡（意图/影响/可逆性/监督，各 1-5 分），返回总分（满分 20）、放行建议与理由"
+    },
+    {
+      "name": "passport_lookup",
+      "description": "查询技能/智能体身份码与溯源（本地台账）"
+    },
+    {
+      "name": "compliance_checklist",
+      "description": "AI 治理合规清单（EU AI Act 2024/1689 相关条款 / GB/Z 185 参考 / ISO/IEC 42001 / PIPL·GDPR）——注册就绪评估起点，条款以官方最新文本为准"
+    },
+    {
+      "name": "gov_scan",
+      "description": "通用治理/PII 扫描：手机号、邮箱、本地路径、疑似凭据、密钥特征串 + 版权指纹缺失提示；可用 names 传指名清单（逗号分隔）"
+    },
+    {
+      "name": "lgd_knowledge",
+      "description": "LGD 全程治理论知识端点：返回三律/三查/规范出处(DOI·仓库)，按主题路由到对应域论文"
+    }
+  ],
+  "security": {
+    "network": false,
+    "credentials": false,
+    "dataEgress": false,
+    "readOnly": true,
+    "notes": "纯本地只读，零网络外发、零凭据；5 工具均为评估/取证类，不签发任何认证；评估结论为人工解读，非独立第三方认证（SynomosAI 集团自评）"
+  },
+  "runtime": {
+    "requires": [
+      "python>=3.9"
+    ],
+    "dependencies": []
+  },
+  "examples_zh": [
+    "对我的 AI 数字员工做一次 A³ 评估，看能不能放行",
+    "生成 ISO/IEC 42001 审计需要的六类证据工件模板",
+    "对照 GB/Z 185 参考和 EU AI Act 相关条款出一份注册就绪合规清单（自评起点）"
+  ],
+  "examples_en": [
+    "Run an A³ assessment on my AI agent before release",
+    "Generate the six evidence-chain artifact templates for an ISO/IEC 42001 audit",
+    "Produce a registration-ready compliance checklist referencing GB/Z 185 and EU AI Act clauses (self-assessment starting point)"
+  ],
+  "examples": {
+    "examples_zh": [
+      "对我的 AI 数字员工做一次 A³ 评估，看能不能放行",
+      "生成 ISO/IEC 42001 审计需要的六类证据工件模板",
+      "对照 GB/Z 185 参考和 EU AI Act 相关条款出一份注册就绪合规清单（自评起点）"
+    ],
+    "examples_en": [
+      "Run an A³ assessment on my AI agent before release",
+      "Generate the six evidence-chain artifact templates for an ISO/IEC 42001 audit",
+      "Produce a registration-ready compliance checklist referencing GB/Z 185 and EU AI Act clauses (self-assessment starting point)"
+    ]
+  },
+  "publishedVia": "WorkBuddy 开放平台",
+  "changelog": [
+    {
+      "version": "1.1.0",
+      "date": "2026-09-05",
+      "changes": [
+        "visa gate: SYNOSMOSAI_REQUIRE_VISA env enables all-calls-require-active-visa (reject code -32001, AI-friendly guidance on rejection)",
+        "agent.json AI discovery card included",
+        "org attribution (SynomosAI)"
+      ]
+    }
+  ],
+  "keywords": [
+    "ai-governance",
+    "mcp",
+    "visa-gate",
+    "agent-card",
+    "ubic-protocol",
+    "iso-42001",
+    "pii-scan",
+    "a3-laws"
+  ]
+}
