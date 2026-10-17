@@ -1,21 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-SynomosAI · MCP Server（stdio）— AI 治理评估工具集
+SynomosAI · MCP Server — AI 治理评估工具集
 ====================================================
-5 个工具：
+6 个工具：
   audit_evidence_chain  生成 ISO 42001/NIST 六类证据工件模板
   a3_assess             A³ 法则四维评分卡（意图/影响/可逆性/监督）
   passport_lookup       查询技能/智能体身份码与溯源（本地台账示例）
   compliance_checklist  EU AI Act 2024/1689 / GB/Z 185 / ISO 42001 / PIPL·GDPR 合规清单
   gov_scan              通用治理/PII/凭据/指纹扫描（可选指名名单）
+  lgd_knowledge         LGD 全程治理论知识端点（三律/三查/规范出处/域论文路由）
+
+双传输模式（同文件自包含，纯 Python 标准库、零依赖）：
+  1) stdio（默认）：python governance_mcp_server.py
+  2) Streamable HTTP（云端托管/远程调用）：
+       python governance_mcp_server.py --http            # 默认 0.0.0.0:8080
+       python governance_mcp_server.py --http --port 9000
+     端点：POST /mcp（支持 application/json 与 text/event-stream SSE 响应）
+     mcpServers 配置：{"command":"python","args":["governance_mcp_server.py","--http","--port","8080"]}
 
 本地运行（stdio）：
   python governance_mcp_server.py
   或配置到 agent 宿主：mcpServers -> synomosai-governance -> command=python, args=[本文件]
 
 输出为评估/取证产物，属自评性质，不构成第三方认证或法律意见。
-指纹 FP-GOV-6999EE1111DE ｜ 版权 SynomosAI · MIT ｜ 2026-08-28
+指纹 FP-GOV-6999EE1111DE ｜ 版权 SynomosAI · MIT ｜ 2026-08-28（HTTP 传输 2026-10-17 增补）
 """
 import json
 import os
@@ -23,8 +32,9 @@ import re
 import sys
 import uuid
 from datetime import datetime, timezone
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 FINGERPRINT = "FP-GOV-6999EE1111DE"
 TOOLS = [
     {
@@ -334,8 +344,150 @@ def handle_tools_call(req):
         return {"jsonrpc": "2.0", "id": req.get("id"), "error": {"code": -32603, "message": str(e)}}
 
 
+def dispatch(req) -> dict:
+    """统一 JSON-RPC 分发（stdio 与 Streamable HTTP 共用）。"""
+    method = req.get("method")
+    if method == "initialize":
+        return handle_initialize(req)
+    if method == "tools/list":
+        return handle_tools_list(req)
+    if method == "tools/call":
+        ok_visa, why = _check_visa()
+        if not ok_visa:
+            return {"jsonrpc": "2.0", "id": req.get("id"),
+                    "error": {"code": -32001, "message": f"visa gate: {why}（凡调必签）。How to proceed: ask your human holder to issue a visa via UBIC visa service (see INSTALL-REQUEST.md in this package), then retry. 签证=调用准入，护照=身份。"}}
+        return handle_tools_call(req)
+    if method == "notifications/initialized":
+        return None  # 通知类：无响应
+    return {"jsonrpc": "2.0", "id": req.get("id"), "error": {"code": -32601, "message": f"method not found: {method}"}}
+
+
+# ================= Streamable HTTP 传输（零依赖：仅 http.server） =================
+# 端点：POST /mcp
+#   Accept: application/json        -> 单次 JSON 响应
+#   Accept: text/event-stream       -> SSE 响应（data: <json>\n\n）
+#   GET  /mcp（Accept: text/event-stream）-> 简易 SSE 说明/健康检查（供检测工具探活）
+# 环境变量：MCP_HTTP_PORT（默认 8080）、MCP_HTTP_HOST（默认 0.0.0.0）
+
+def _cors_headers():
+    return {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Accept, Mcp-Session-Id",
+    }
+
+
+class MCPHTTPHandler(BaseHTTPRequestHandler):
+    protocol_version = "HTTP/1.1"
+
+    def log_message(self, fmt, *args):  # 静默访问日志（避免刷屏；错误走 audit）
+        pass
+
+    def _send_json(self, code, payload):
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        for k, v in _cors_headers().items():
+            self.send_header(k, v)
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _send_sse(self, code, payload):
+        """SSE 响应：data: <json>\n\n；无 session 简化实现（单响应即完成）。"""
+        data = "data: " + json.dumps(payload, ensure_ascii=False) + "\n\n"
+        body = data.encode("utf-8")
+        self.send_response(code)
+        self.send_header("Content-Type", "text/event-stream")
+        self.send_header("Cache-Control", "no-cache")
+        self.send_header("Connection", "keep-alive")
+        self.send_header("Content-Length", str(len(body)))
+        for k, v in _cors_headers().items():
+            self.send_header(k, v)
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _handle_mcp(self):
+        try:
+            length = int(self.headers.get("Content-Length") or 0)
+            raw = self.rfile.read(length) if length else b""
+            req = json.loads(raw.decode("utf-8")) if raw else {}
+        except Exception:
+            self._send_json(400, {"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": "parse error"}})
+            return
+        if not isinstance(req, dict) or "method" not in req:
+            self._send_json(400, {"jsonrpc": "2.0", "id": None, "error": {"code": -32600, "message": "invalid request"}})
+            return
+        try:
+            resp = dispatch(req)
+        except Exception as e:
+            self._send_json(500, {"jsonrpc": "2.0", "id": req.get("id"), "error": {"code": -32603, "message": str(e)}})
+            return
+        if resp is None:  # 通知（notifications/initialized）：202 Accepted，无 body
+            self.send_response(202)
+            self.send_header("Content-Length", "0")
+            for k, v in _cors_headers().items():
+                self.send_header(k, v)
+            self.end_headers()
+            return
+        accept = self.headers.get("Accept", "")
+        if "text/event-stream" in accept:
+            self._send_sse(200, resp)
+        else:
+            self._send_json(200, resp)
+
+    def do_OPTIONS(self):
+        self.send_response(204)
+        for k, v in _cors_headers().items():
+            self.send_header(k, v)
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
+    def do_GET(self):
+        if self.path.rstrip("/") == "/mcp":
+            # SSE 探活/说明（检测工具 GET 探活时返回 serverInfo）
+            payload = {"jsonrpc": "2.0", "id": None,
+                       "result": {"protocolVersion": "2025-03-26",
+                                  "capabilities": {"tools": {}},
+                                  "serverInfo": {"name": "synomosai-governance-mcp", "version": VERSION}}}
+            if "text/event-stream" in (self.headers.get("Accept") or ""):
+                self._send_sse(200, payload)
+            else:
+                self._send_json(200, {"server": "synomosai-governance-mcp", "version": VERSION, "endpoint": "POST /mcp", "note": "Streamable HTTP MCP endpoint. Send JSON-RPC POST with Accept: application/json or text/event-stream."})
+        else:
+            self._send_json(404, {"error": "not found"})
+
+    def do_POST(self):
+        if self.path.rstrip("/") == "/mcp":
+            self._handle_mcp()
+        else:
+            self._send_json(404, {"error": "not found"})
+
+
+def main_http():
+    init_audit()
+    host = os.environ.get("MCP_HTTP_HOST", "0.0.0.0")
+    port = int(os.environ.get("MCP_HTTP_PORT", "8080"))
+    # 支持 --port 覆盖
+    try:
+        ai = sys.argv.index("--port")
+        port = int(sys.argv[ai + 1])
+    except (ValueError, IndexError):
+        pass
+    server = ThreadingHTTPServer((host, port), MCPHTTPHandler)
+    sys.stderr.write(f"[synomosai-governance-mcp {VERSION}] Streamable HTTP listening on {host}:{port} (POST /mcp)\n")
+    sys.stderr.flush()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        server.server_close()
+
+
 def main():
     init_audit()
+    if "--http" in sys.argv:
+        main_http()
+        return
     # stdio transport：逐行读取 JSON-RPC，响应写 stdout
     for line in sys.stdin:
         line = line.strip()
@@ -345,22 +497,9 @@ def main():
             req = json.loads(line)
         except json.JSONDecodeError:
             continue
-        method = req.get("method")
-        if method == "initialize":
-            resp = handle_initialize(req)
-        elif method == "tools/list":
-            resp = handle_tools_list(req)
-        elif method == "tools/call":
-            ok_visa, why = _check_visa()
-            if not ok_visa:
-                resp = {"jsonrpc": "2.0", "id": req.get("id"),
-                        "error": {"code": -32001, "message": f"visa gate: {why}（凡调必签）。How to proceed: ask your human holder to issue a visa via UBIC visa service (see INSTALL-REQUEST.md in this package), then retry. 签证=调用准入，护照=身份。"}}
-                print(json.dumps(resp, ensure_ascii=False)); continue
-            resp = handle_tools_call(req)
-        elif method == "notifications/initialized":
+        resp = dispatch(req)
+        if resp is None:
             continue
-        else:
-            resp = {"jsonrpc": "2.0", "id": req.get("id"), "error": {"code": -32601, "message": f"method not found: {method}"}}
         sys.stdout.write(json.dumps(resp, ensure_ascii=False) + "\n")
         sys.stdout.flush()
 
