@@ -1,0 +1,35 @@
+{
+  "schema": "ubic/agent-card/v1",
+  "name": "SynomosAI Governance MCP",
+  "description": "AI governance assessment tools: A3 four-dimension scorecard, ISO/IEC 42001 + NIST evidence templates, compliance checklist (EU AI Act 2024/1689 / GB/Z 185 reference / PIPL-GDPR), passport_lookup, gov_scan text screening. Pure stdlib, zero network egress, visa-gated (install-by-consent).",
+  "protocol": "UBIC Protocol v0.1",
+  "provider": {
+    "organization": "SynomosAI"
+  },
+  "capabilities": [
+    "a3_assess",
+    "audit_evidence_chain",
+    "compliance_checklist",
+    "passport_lookup",
+    "gov_scan",
+    "lgd_knowledge"
+  ],
+  "install": {
+    "config": {
+      "mcpServers": {
+        "synomosai-governance-mcp": {
+          "command": "python",
+          "args": [
+            "./governance_mcp_server.py"
+          ]
+        }
+      }
+    },
+    "consent": "AI may request, human approves (A3 Law II). See INSTALL-REQUEST.md"
+  },
+  "visaGate": {
+    "env": "SYNOSMOSAI_REQUIRE_VISA",
+    "default": "off",
+    "rejectCode": -32001
+  }
+}
