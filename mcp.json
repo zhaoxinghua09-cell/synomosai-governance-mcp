@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "synomosai-governance-mcp": {
+      "command": "python",
+      "args": ["./governance_mcp_server.py"]
+    }
+  }
+}
