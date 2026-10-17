@@ -2,7 +2,8 @@
   "mcpServers": {
     "synomosai-governance-mcp": {
       "command": "python",
-      "args": ["./governance_mcp_server.py"]
+      "args": ["./governance_mcp_server.py", "--http", "--port", "8080"],
+      "env": { "MCP_HTTP_PORT": "8080" }
     }
   }
 }
