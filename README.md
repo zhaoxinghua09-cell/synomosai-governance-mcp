@@ -27,7 +27,20 @@ Every response carries a `trace_id` and timestamp; audit logging is optional
 
 ## Install
 
-**Local (stdio):**
+**Recommended (stdio via PyPI, ModelScope-hostable):**
+
+```json
+{
+  "mcpServers": {
+    "synomosai-governance-mcp": {
+      "command": "uvx",
+      "args": ["synomosai-governance-mcp"]
+    }
+  }
+}
+```
+
+**Local checkout (stdio from source):**
 
 ```json
 {
