@@ -1,8 +1,8 @@
 {
   "name": "synomosai-governance-mcp",
   "displayName": "SynomosAI AI 治理 MCP｜A³评估·合规清单·证据链·治理扫描",
-  "version": "1.1.0",
-  "description": "AI 治理评估 MCP 连接器（6 个评估类工具）：A³ 四维评分卡（AI 造/改 AI 放行判定）、ISO/IEC 42001 + NIST AI RMF 六类证据工件模板、EU AI Act 2024/1689 相关条款与 GB/Z 185 参考的合规清单、技能/智能体身份码溯源查询、通用治理/PII/凭据/指纹扫描（可选指名名单）、LGD 全程治理论知识端点。纯 stdlib、零依赖、零网络外发、本地闭环；输出为评估/取证产物，非第三方认证。",
+  "version": "1.2.0",
+  "description": "AI 治理评估 MCP 连接器（6 个评估类工具，stdio + Streamable HTTP 双传输）：A³ 四维评分卡（AI 造/改 AI 放行判定）、ISO/IEC 42001 + NIST AI RMF 六类证据工件模板、EU AI Act 2024/1689 相关条款与 GB/Z 185 参考的合规清单、技能/智能体身份码溯源查询、通用治理/PII/凭据/指纹扫描（可选指名名单）、LGD 全程治理论知识端点。纯 stdlib、零依赖、零网络外发、本地闭环；输出为评估/取证产物，非第三方认证。",
   "description_en": "AI governance evaluation MCP connector (6 assessment-only tools): A³ four-dimension scorecard, ISO/IEC 42001 + NIST AI RMF evidence-chain templates, compliance checklist against EU AI Act 2024/1689 clauses and GB/Z 185, identity/passport lookup, generic governance/PII/credential/fingerprint text scan with optional name list, and an LGD lifecycle-governance knowledge endpoint. Pure stdlib, zero dependency, zero network egress, fully local; outputs are assessment artifacts, not third-party certification.",
   "category": "AI 治理 / 合规评估",
   "type": "mcp",
@@ -40,7 +40,7 @@
     "credentials": false,
     "dataEgress": false,
     "readOnly": true,
-    "notes": "纯本地只读，零网络外发、零凭据；5 工具均为评估/取证类，不签发任何认证；评估结论为人工解读，非独立第三方认证（SynomosAI 集团自评）"
+    "notes": "纯本地只读，零网络外发、零凭据；6 工具均为评估/取证类，不签发任何认证；评估结论为人工解读，非独立第三方认证（SynomosAI 集团自评）"
   },
   "runtime": {
     "requires": [
@@ -72,6 +72,16 @@
   },
   "publishedVia": "WorkBuddy 开放平台",
   "changelog": [
+    {
+      "version": "1.2.0",
+      "date": "2026-10-17",
+      "changes": [
+        "Streamable HTTP transport added: python governance_mcp_server.py --http (POST /mcp, JSON + SSE, GET probe, CORS) — enables hosted/cloud MCP deployment",
+        "Dockerfile now defaults to HTTP mode (EXPOSE 8080)",
+        "README: remote/HTTP install snippet + curl examples",
+        "lgd_knowledge version bump note"
+      ]
+    },
     {
       "version": "1.1.0",
       "date": "2026-09-05",
