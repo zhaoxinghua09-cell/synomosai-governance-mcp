@@ -1,0 +1,31 @@
+# SynomosAI Governance MCP (synomosai-governance-mcp)
+
+> AI governance assessment toolkit for AI agents and their builders. Pure Python stdlib, zero dependencies, zero network egress, audit-traceable. Runs as a Model Context Protocol (MCP) server with 6 tools.
+
+Part of the UBIC Protocol — the personhood-registry layer for AI agents (who an AI is, who forged it, under whose sovereignty it lives). Self-assessment tooling, not third-party certification.
+
+## Core
+
+- [governance_mcp_server.py](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/governance_mcp_server.py): MCP server (stdio, 6 tools, optional append-only audit log)
+- [README.md](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/README.md): tool table, install + quick start
+- [mcp.json](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/mcp.json): ready-to-paste MCP client config
+- [pyproject.toml](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/pyproject.toml): Python package metadata
+
+## Tools
+
+- `a3_assess` — A³ four-dimension release scorecard (intent / impact / reversibility / oversight)
+- `audit_evidence_chain` — six ISO/IEC 42001 + NIST AI RMF evidence-artifact templates
+- `compliance_checklist` — registration-readiness checklist (EU AI Act 2024/1689, GB/Z 185, ISO/IEC 42001, PIPL/GDPR)
+- `passport_lookup` — passport / identity-code lookup against a local ledger
+- `gov_scan` — text screening: phone, email, local paths, credential-like strings, key fingerprints, copyright fingerprints
+- `lgd_knowledge` — LGD doctrine knowledge endpoint (three laws / three checks / canonical DOI & repo)
+
+## Optional
+
+- [AGENTS.md](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/AGENTS.md): work guidance for AI agents
+- [llms-full.txt](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/llms-full.txt): full text for long-context models
+- [SECURITY.md](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/SECURITY.md): security policy
+- [CONTRIBUTING.md](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/CONTRIBUTING.md): contribution guide
+- [INTEGRATION.md](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/INTEGRATION.md): integration contract for app backends
+- [INSTALL-REQUEST.md](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/INSTALL-REQUEST.md): AI-request / human-approve install standard
+- [LICENSE](https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp/blob/main/LICENSE): MIT for code

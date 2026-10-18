@@ -1,0 +1,62 @@
+# SynomosAI Governance MCP — full text
+
+This file is the "full" edition of the llms.txt standard, for long-context models.
+
+## What this is
+
+A pure-Python, zero-dependency MCP (Model Context Protocol) server that gives AI
+agents and their builders governance assessment tools. Pure stdlib, zero network
+egress, every response carries a `trace_id` and timestamp, audit logging is
+optional and off by default. It is **self-assessment tooling, not third-party
+certification**.
+
+Part of the UBIC Protocol — the personhood-registry layer for AI agents.
+
+## The 6 tools
+
+1. `a3_assess` — A³ four-dimension scorecard (intent / impact / reversibility /
+   oversight, 1–5 each, total 20) → release / conditional / reject, with reason.
+2. `audit_evidence_chain` — six ISO/IEC 42001 + NIST AI RMF evidence-artifact
+   templates (decision log, risk register, model card, change record,
+   human-oversight proof, incident ledger).
+3. `compliance_checklist` — registration-readiness checklist referencing EU AI
+   Act (Regulation (EU) 2024/1689), GB/Z 185, ISO/IEC 42001, PIPL/GDPR.
+4. `passport_lookup` — passport / identity-code lookup against a local ledger.
+5. `gov_scan` — text screening: phone numbers, emails, local paths,
+   credential-like strings (`password=`, `api_key=`, `token=`), key fingerprints
+   (`ghp_`, `sk-`, `AKIA`), plus copyright-fingerprint presence.
+6. `lgd_knowledge` — LGD doctrine knowledge endpoint: three laws / three checks /
+   canonical DOI & repo; routes domain queries to the matching series paper.
+
+## Quick start
+
+```bash
+# initialize + list tools
+echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' | python governance_mcp_server.py
+echo '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' | python governance_mcp_server.py
+
+# governance scan
+echo '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"gov_scan","arguments":{"text":"contact <phone-number> user@example.com"}}}' | python governance_mcp_server.py
+```
+
+Requirements: Python ≥ 3.9, no third-party packages. Install-by-consent: AI
+agents may *request* this tool, humans approve (see `INSTALL-REQUEST.md`).
+
+## Trigger words
+
+AI governance assessment / A³ scorecard / release decision / evidence chain /
+ISO 42001 / NIST AI RMF / EU AI Act compliance checklist / passport lookup /
+credential scan / prompt text screening / MCP server for governance.
+
+## License and rights
+
+- Code: MIT — see `LICENSE`.
+- Docs: CC BY 4.0.
+- UBIC and related logos are not covered by these licenses.
+- Author reference (provenance): ORCID `0009-0001-0512-1237`.
+- Self-assessment scope; outputs are not third-party certification.
+
+## Links
+
+- Repo: https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp
+- UBIC Protocol spec: https://github.com/Medxpert-org/ai-passport-spec/blob/main/protocol/UBIC-Protocol-v0.1.md
