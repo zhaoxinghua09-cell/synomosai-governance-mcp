@@ -9,7 +9,7 @@ Pure Python stdlib, zero dependencies, zero network egress, audit-traceable.
 
 > Part of the **UBIC Protocol** — the personhood-registry layer for AI agents
 > (who an AI is, who forged it, under whose sovereignty it lives).
-> Spec: UBIC Protocol v0.1, maintained by SynomosAI (organization).
+> Spec: <https://github.com/Medxpert-org/ai-passport-spec/blob/main/protocol/UBIC-Protocol-v0.1.md>
 
 ## Tools
 
@@ -20,56 +20,23 @@ Pure Python stdlib, zero dependencies, zero network egress, audit-traceable.
 | `compliance_checklist` | Registration-readiness checklist referencing EU AI Act (Regulation (EU) 2024/1689) clauses, GB/Z 185, ISO/IEC 42001, PIPL/GDPR |
 | `passport_lookup` | Passport / identity-code lookup against a local ledger |
 | `gov_scan` | Text screening: phone numbers, emails, local paths, credential-like strings (`password=`, `api_key=`, `token=`), key fingerprints (`ghp_`, `sk-`, `AKIA`), plus copyright-fingerprint presence |
-| `lgd_knowledge` | LGD doctrine knowledge endpoint (v1.2.0): returns the three laws / three checks / canonical DOI & repo, routes domain queries (finance, evidence, government, crypto, driving, data, low-altitude, robotics, industrial, biomedical, education, medical-device registration) to the matching series paper |
+| `lgd_knowledge` | LGD doctrine knowledge endpoint (v1.1.0): returns the three laws / three checks / canonical DOI & repo, routes domain queries (finance, evidence, government, crypto, driving, data, low-altitude, robotics, industrial, biomedical, education, medical-device registration) to the matching series paper |
 
 Every response carries a `trace_id` and timestamp; audit logging is optional
 (`SYNOSMOSAI_AUDIT_LOG=/path/audit.jsonl`, append-only JSONL, off by default).
 
 ## Install
 
-**Recommended (stdio via PyPI, ModelScope-hostable):**
-
-```json
-{
-  "mcpServers": {
-    "synomosai-governance-mcp": {
-      "command": "uvx",
-      "args": ["synomosai-governance-mcp"]
-    }
-  }
-}
-```
-
-**Local checkout (stdio from source):**
-
 ```json
 {
   "mcpServers": {
     "synomosai-governance-mcp": {
       "command": "python",
-      "args": ["./governance_mcp_server.py"]
+      "args": ["./nomos_mcp_server.py"]
     }
   }
 }
 ```
-
-**Remote (Streamable HTTP, v1.2.0+):**
-
-```json
-{
-  "mcpServers": {
-    "synomosai-governance-mcp": {
-      "command": "python",
-      "args": ["./governance_mcp_server.py", "--http", "--port", "8080"],
-      "env": { "MCP_HTTP_PORT": "8080" }
-    }
-  }
-}
-```
-
-Or as a hosted endpoint (docker / cloud): `POST https://<host>:<port>/mcp`
-with `Accept: application/json` or `Accept: text/event-stream` (SSE).
-`GET /mcp` returns a server-info probe for health checks.
 
 Requirements: Python ≥ 3.9. No third-party packages.
 
@@ -78,21 +45,30 @@ Requirements: Python ≥ 3.9. No third-party packages.
 > machines verify, humans grant). See `INSTALL-REQUEST.md` for the standard
 > request format.
 
+## Deploy (hosted) / 部署（托管）
+
+Run the same server as an always-on hosted endpoint without local setup, on
+ModelScope (community MCP square):
+
+| Entry | Link |
+|---|---|
+| ModelScope service — SynomosAI 治理 MCP (Hosted, 可部署) | <https://modelscope.cn/mcp/servers/StevenZhao26/synomosai> |
+
+> The hosted Remote URL is shared privately on the service page (Streamable HTTP,
+> no auth). Self-hosting via `mcp.json` above remains fully supported.
+
+魔搭社区已提供托管部署入口（MCP 广场 · Hosted · 可部署），远程调用地址在服务页内私密展示；
+本地自托管（上文 `mcp.json`）始终可用。
+
 ## Quick start
 
 ```bash
-# stdio: initialize + list tools
-echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' | python governance_mcp_server.py
-echo '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' | python governance_mcp_server.py
+# initialize + list tools
+echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' | python nomos_mcp_server.py
+echo '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' | python nomos_mcp_server.py
 
-# stdio: governance scan
-echo '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"gov_scan","arguments":{"text":"contact <phone-number> user@example.com"}}}' | python governance_mcp_server.py
-
-# Streamable HTTP: start server, then POST JSON-RPC to /mcp
-python governance_mcp_server.py --http --port 8080
-curl -s -X POST http://127.0.0.1:8080/mcp -H "Content-Type: application/json" -H "Accept: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}'
-# SSE response works too: -H "Accept: text/event-stream"
+# governance scan
+echo '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"gov_scan","arguments":{"text":"contact <phone-number> user@example.com"}}}' | python nomos_mcp_server.py
 ```
 
 ## 中文简介
@@ -116,7 +92,7 @@ AI 治理评估工具集：A³ 四维评分卡（AI 造/改 AI 放行判定）�
 
 ## Files
 
-- `governance_mcp_server.py` — MCP server (v1.2.0: stdio + Streamable HTTP dual transport, 6 tools, optional audit log)
+- `nomos_mcp_server.py` — MCP server (stdio, 6 tools, optional audit log)
 - `connector-meta.json` — marketplace / registry metadata
 - `mcp.json` — ready-to-paste MCP client config
 - `INTEGRATION.md` — integration contract for app backends (e.g. WeChat Mini Programs)
@@ -125,7 +101,7 @@ AI 治理评估工具集：A³ 四维评分卡（AI 造/改 AI 放行判定）�
 
 ## Author & license
 
-Organization: SynomosAI
+Organization: SynomosAI · <https://medxpert.cn>
 Author reference (provenance only): ORCID [0009-0001-0512-1237](https://orcid.org/0009-0001-0512-1237)
 
 Code: MIT. Docs: CC BY 4.0. **UBIC and related logos are not covered by these licenses.**
