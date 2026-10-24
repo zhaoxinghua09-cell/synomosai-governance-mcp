@@ -32,7 +32,7 @@ Every response carries a `trace_id` and timestamp; audit logging is optional
   "mcpServers": {
     "synomosai-governance-mcp": {
       "command": "python",
-      "args": ["./nomos_mcp_server.py"]
+      "args": ["./governance_mcp_server.py"]
     }
   }
 }
@@ -64,11 +64,11 @@ ModelScope (community MCP square):
 
 ```bash
 # initialize + list tools
-echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' | python nomos_mcp_server.py
-echo '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' | python nomos_mcp_server.py
+echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' | python governance_mcp_server.py
+echo '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' | python governance_mcp_server.py
 
 # governance scan
-echo '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"gov_scan","arguments":{"text":"contact <phone-number> user@example.com"}}}' | python nomos_mcp_server.py
+echo '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"gov_scan","arguments":{"text":"contact <phone-number> user@example.com"}}}' | python governance_mcp_server.py
 ```
 
 ## 中文简介
@@ -92,7 +92,7 @@ AI 治理评估工具集：A³ 四维评分卡（AI 造/改 AI 放行判定）�
 
 ## Files
 
-- `nomos_mcp_server.py` — MCP server (stdio, 6 tools, optional audit log)
+- `governance_mcp_server.py` — MCP server (stdio, 6 tools, optional audit log)
 - `connector-meta.json` — marketplace / registry metadata
 - `mcp.json` — ready-to-paste MCP client config
 - `INTEGRATION.md` — integration contract for app backends (e.g. WeChat Mini Programs)
