@@ -101,8 +101,9 @@ AI 治理评估工具集：A³ 四维评分卡（AI 造/改 AI 放行判定）�
 
 ## Author & license
 
-Organization: SynomosAI · <https://medxpert.cn>
-Author reference (provenance only): ORCID [0009-0001-0512-1237](https://orcid.org/0009-0001-0512-1237)
+Contact: <https://medxpert.cn>
+ORCID: [0009-0001-0512-1237](https://orcid.org/0009-0001-0512-1237)
+理论署名 (attribution) : LGD（Lifecycle Governance Doctrine / 全程治理论）— SynomosAI initiative
 
 Code: MIT. Docs: CC BY 4.0. **UBIC and related logos are not covered by these licenses.**
 Co-created by human and AI on the WorkBuddy platform.
