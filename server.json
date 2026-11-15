@@ -3,7 +3,7 @@
   "name": "io.github.zhaoxinghua09-cell/synomosai-governance-mcp",
   "title": "SynomosAI Governance MCP",
   "description": "AI governance assessment: A³ scorecard, ISO 42001 evidence chain, compliance checklist, PII scan.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "websiteUrl": "https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp",
   "repository": {
     "url": "https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp",
@@ -22,7 +22,7 @@
     {
       "registryType": "pypi",
       "identifier": "synomosai-governance-mcp",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "runtimeHint": "uvx",
       "transport": {
         "type": "stdio"
@@ -35,7 +35,7 @@
       "license": "Code MIT; docs CC BY 4.0",
       "runtime_egress": "none",
       "tool_count": 6,
-      "verify_command": "uvx --from synomosai-governance-mcp@1.2.1 synomosai-governance",
+      "verify_command": "uvx synomosai-governance-mcp",
       "scope_note": "Assessment artifacts only; not third-party certification or legal advice."
     }
   }

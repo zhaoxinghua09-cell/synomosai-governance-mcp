@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "synomosai-governance-mcp"
-version = "1.2.1"
+version = "1.2.2"
 description = "SynomosAI Governance MCP — AI governance assessment tools for AI agents (A³ scorecard, ISO 42001 evidence chain, compliance checklist, passport lookup, PII scan, LGD knowledge). Pure stdlib, zero deps, stdio + Streamable HTTP."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -23,6 +23,9 @@ Homepage = "https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp"
 Source = "https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp"
 
 [project.scripts]
+# 与发行包同名的那条是 Registry 客户端的启动入口：uvx 先按包名找同名命令，
+# 找不到就会报 "Use `uvx --from ...` instead" 而无法起服务。
+synomosai-governance-mcp = "governance_mcp_server:main"
 synomosai-governance = "governance_mcp_server:main"
 
 [tool.setuptools]
