@@ -1,0 +1,42 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.zhaoxinghua09-cell/synomosai-governance-mcp",
+  "title": "SynomosAI Governance MCP",
+  "description": "AI governance assessment: A³ scorecard, ISO 42001 evidence chain, compliance checklist, PII scan.",
+  "version": "1.2.1",
+  "websiteUrl": "https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp",
+  "repository": {
+    "url": "https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp",
+    "source": "github",
+    "id": "1423336164"
+  },
+  "icons": [
+    {
+      "src": "https://cdn.jsdelivr.net/gh/zhaoxinghua09-cell/synomosai-governance-mcp@main/icon.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": ["any"],
+      "theme": "light"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "synomosai-governance-mcp",
+      "version": "1.2.1",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "publisher": "SynomosAI / Zhao Xinghua (Steven Zhao)",
+      "license": "Code MIT; docs CC BY 4.0",
+      "runtime_egress": "none",
+      "tool_count": 6,
+      "verify_command": "uvx --from synomosai-governance-mcp@1.2.1 synomosai-governance",
+      "scope_note": "Assessment artifacts only; not third-party certification or legal advice."
+    }
+  }
+}

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "synomosai-governance-mcp"
-version = "1.2.0"
+version = "1.2.1"
 description = "SynomosAI Governance MCP — AI governance assessment tools for AI agents (A³ scorecard, ISO 42001 evidence chain, compliance checklist, passport lookup, PII scan, LGD knowledge). Pure stdlib, zero deps, stdio + Streamable HTTP."
 readme = "README.md"
 requires-python = ">=3.9"
