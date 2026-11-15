@@ -1,5 +1,7 @@
 # SynomosAI Governance MCP
 
+<!-- mcp-name: io.github.zhaoxinghua09-cell/synomosai-governance-mcp -->
+
 [![License: MIT](https://img.shields.io/badge/Code-MIT-blue.svg)](LICENSE)
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs-CC%20BY%204.0-lightgrey.svg)](#)
 [![Python](https://img.shields.io/badge/python-stdlib%20%7C%20zero%20deps-3776AB.svg)](#)

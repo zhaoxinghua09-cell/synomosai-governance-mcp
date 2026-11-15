@@ -34,7 +34,7 @@ import uuid
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-VERSION = "1.2.0"
+VERSION = "1.2.1"
 FINGERPRINT = "FP-GOV-6999EE1111DE"
 TOOLS = [
     {
