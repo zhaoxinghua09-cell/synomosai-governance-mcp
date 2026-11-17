@@ -30,7 +30,7 @@ echo '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"gov_scan",
 
 ## 禁止（Don't）
 
-- 不要改动 `LICENSE` 的版权主体或 README「Author & license」中的权属 / 许可口径（Code MIT / Docs CC BY 4.0 / UBIC 标识除外）。
+- 不要改动 `LICENSE` 的版权主体或 README「Author & license」中的权属 / 许可口径（Code MIT / Docs CC BY 4.0 / UIBC 标识除外）。
 - 不要把自评输出对外表述为「第三方认证」；这是自评工具。
 - 不要在仓内提交任何密钥、令牌或真实个人数据。
 - 不要新增网络外发行为；扫描器仅处理传入文本，不回传任何内容。

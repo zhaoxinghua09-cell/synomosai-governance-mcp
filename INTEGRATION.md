@@ -42,7 +42,7 @@ python governance_mcp_server.py
 | `a3_assess` | intent/impact/reversibility/oversight（各 1-5，越界自动 clamp，缺省 3） | scores/total(满分20)/verdict/reason/scope | 「AI 发布前自评」页：滑动条打分 → 展示放行/复核/拒绝 + 理由 |
 | `audit_evidence_chain` | system_name（可选） | 六类证据工件模板 + generated_at | 「审计准备」页：按系统名生成六类模板清单 |
 | `compliance_checklist` | 无 | 六项 checklist（均"待确认"）+ note（条款以官方文本为准） | 「合规自查」页：勾选式清单 |
-| `passport_lookup` | skill（如 `example-ai-brand`） | found/fp/version/owner 或 not-found | 「身份查询」页：本地台账示例，未来接 UBIC 花名册 |
+| `passport_lookup` | skill（如 `example-ai-brand`） | found/fp/version/owner 或 not-found | 「身份查询」页：本地台账示例，未来接 UIBC 花名册 |
 | `gov_scan` | text（必填）+ names（可选，逗号分隔指名清单） | findings[]（type/severity）/clean/verdict | 「文本体检」页：粘贴文本 → 高亮命中类型 |
 
 错误：未知工具返回 `-32602`；内部异常 `-32603`。入参缺失/null 均有兜底，不会 500。
@@ -65,6 +65,6 @@ python governance_mcp_server.py
 - 指纹链：母版 `FP-GOV-6999EE1111DE`（2026-08-28）→ 发布版 `FP-4b74a77b6466bc10`（2026-09-05）
 - 契约变更须同步升 version 并在双边（小程序会话 + 本会话）留痕
 
-## 七、UBIC 数据接入（后续路线）
+## 七、UIBC 数据接入（后续路线）
 
 小程序不直读本地 roster-data.json。路线：本会话产出**公开快照**（仅 public 字段 + 指纹锚点值）→ 小程序侧随包/云端缓存只读展示。`passport_lookup` 未来由"本地台账示例"升级为"公开快照查询"，接口形态不变。

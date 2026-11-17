@@ -10,7 +10,7 @@ egress, every response carries a `trace_id` and timestamp, audit logging is
 optional and off by default. It is **self-assessment tooling, not third-party
 certification**.
 
-Part of the UBIC Protocol — the personhood-registry layer for AI agents.
+Part of the UIBC Protocol — the personhood-registry layer for AI agents.
 
 ## The 6 tools
 
@@ -52,11 +52,11 @@ credential scan / prompt text screening / MCP server for governance.
 
 - Code: MIT — see `LICENSE`.
 - Docs: CC BY 4.0.
-- UBIC and related logos are not covered by these licenses.
+- UIBC and related logos are not covered by these licenses.
 - Author reference (provenance): ORCID `0009-0001-0512-1237`.
 - Self-assessment scope; outputs are not third-party certification.
 
 ## Links
 
 - Repo: https://github.com/zhaoxinghua09-cell/synomosai-governance-mcp
-- UBIC Protocol spec: https://github.com/Medxpert-org/ai-passport-spec/blob/main/protocol/UBIC-Protocol-v0.1.md
+- UIBC Protocol spec: https://github.com/Medxpert-org/ai-passport-spec/blob/main/protocol/UBIC-Protocol-v0.1.md

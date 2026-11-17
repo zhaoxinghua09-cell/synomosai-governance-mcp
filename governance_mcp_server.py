@@ -355,7 +355,7 @@ def dispatch(req) -> dict:
         ok_visa, why = _check_visa()
         if not ok_visa:
             return {"jsonrpc": "2.0", "id": req.get("id"),
-                    "error": {"code": -32001, "message": f"visa gate: {why}（凡调必签）。How to proceed: ask your human holder to issue a visa via UBIC visa service (see INSTALL-REQUEST.md in this package), then retry. 签证=调用准入，护照=身份。"}}
+                    "error": {"code": -32001, "message": f"visa gate: {why}（凡调必签）。How to proceed: ask your human holder to issue a visa via UIBC visa service (see INSTALL-REQUEST.md in this package), then retry. 签证=调用准入，护照=身份。"}}
         return handle_tools_call(req)
     if method == "notifications/initialized":
         return None  # 通知类：无响应
