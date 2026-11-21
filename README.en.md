@@ -11,7 +11,7 @@
 **AI governance assessment tools for AI agents and their builders.**
 Pure Python stdlib, zero dependencies, zero network egress, audit-traceable.
 
-> Part of the **UBIC Protocol** — the personhood-registry layer for AI agents
+> Part of the **UIBC Protocol** — the personhood-registry layer for AI agents
 > (who an AI is, who forged it, under whose sovereignty it lives).
 
 ## Tools
@@ -63,7 +63,7 @@ echo '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"gov_scan",
 
 - Code: MIT — see [LICENSE](LICENSE).
 - Docs: CC BY 4.0.
-- UBIC and related logos are not covered by these licenses.
+- UIBC and related logos are not covered by these licenses.
 - Author reference (provenance): ORCID `0009-0001-0512-1237`.
 
 Security issues: report privately per [SECURITY.md](SECURITY.md).

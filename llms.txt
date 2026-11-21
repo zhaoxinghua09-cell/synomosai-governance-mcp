@@ -2,7 +2,7 @@
 
 > AI governance assessment toolkit for AI agents and their builders. Pure Python stdlib, zero dependencies, zero network egress, audit-traceable. Runs as a Model Context Protocol (MCP) server with 6 tools.
 
-Part of the UBIC Protocol — the personhood-registry layer for AI agents (who an AI is, who forged it, under whose sovereignty it lives). Self-assessment tooling, not third-party certification.
+Part of the UIBC Protocol — the personhood-registry layer for AI agents (who an AI is, who forged it, under whose sovereignty it lives). Self-assessment tooling, not third-party certification.
 
 ## Core
 

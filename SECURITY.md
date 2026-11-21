@@ -32,5 +32,5 @@
 
 ---
 
-许可：Code MIT（见 `LICENSE`）；Docs CC BY 4.0；UBIC 及相关标识不在上述许可覆盖内。
+许可：Code MIT（见 `LICENSE`）；Docs CC BY 4.0；UIBC 及相关标识不在上述许可覆盖内。
 联系：zhaoxinghua09@gmail.com ｜ ORCID `0009-0001-0512-1237`

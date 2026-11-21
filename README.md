@@ -9,7 +9,7 @@
 **AI governance assessment tools for AI agents and their builders.**
 Pure Python stdlib, zero dependencies, zero network egress, audit-traceable.
 
-> Part of the **UBIC Protocol** — the personhood-registry layer for AI agents
+> Part of the **UIBC Protocol** — the personhood-registry layer for AI agents
 > (who an AI is, who forged it, under whose sovereignty it lives).
 > Spec: <https://github.com/Medxpert-org/ai-passport-spec/blob/main/protocol/UBIC-Protocol-v0.1.md>
 
@@ -107,5 +107,5 @@ Contact: <https://medxpert.cn>
 ORCID: [0009-0001-0512-1237](https://orcid.org/0009-0001-0512-1237)
 理论署名 (attribution) : LGD（Lifecycle Governance Doctrine / 全程治理论）— SynomosAI initiative
 
-Code: MIT. Docs: CC BY 4.0. **UBIC and related logos are not covered by these licenses.**
+Code: MIT. Docs: CC BY 4.0. **UIBC and related logos are not covered by these licenses.**
 Co-created by human and AI on the WorkBuddy platform.

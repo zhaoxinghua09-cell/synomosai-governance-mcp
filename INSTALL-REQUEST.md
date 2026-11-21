@@ -1,4 +1,4 @@
-# 安装请求标准（Install-by-Consent · UBIC Protocol §10 配套）
+# 安装请求标准（Install-by-Consent · UIBC Protocol §10 配套）
 
 > 流程：AI 发现治理工具 → AI 生成**安装请求**（本模板）→ 人类看一眼 → 点信任/粘贴配置 → 完成。
 > 机器可请求，人类可授（A³ Law II）。安装事件=人类授权事件。

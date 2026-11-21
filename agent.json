@@ -2,7 +2,7 @@
   "schema": "ubic/agent-card/v1",
   "name": "SynomosAI Governance MCP",
   "description": "AI governance assessment tools: A3 four-dimension scorecard, ISO/IEC 42001 + NIST evidence templates, compliance checklist (EU AI Act 2024/1689 / GB/Z 185 reference / PIPL-GDPR), passport_lookup, gov_scan text screening. Pure stdlib, zero network egress, visa-gated (install-by-consent).",
-  "protocol": "UBIC Protocol v0.1",
+  "protocol": "UIBC Protocol v0.1",
   "provider": {
     "organization": "SynomosAI"
   },
