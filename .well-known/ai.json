@@ -1,7 +1,7 @@
 {
   "schema": "ai-manifest/v1",
   "repository": "zhaoxinghua09-cell/synomosai-governance-mcp",
-  "role": "规范/投稿仓：加 .well-known/ai.json + README 首屏窄声明",
+  "role": "Code/tool repo: security, compliance and privacy toolkit for AI agents; see README for a one-paragraph role statement.",
   "what_it_is": "Security, compliance & privacy toolkit for AI agents: SynomosAI Governance MCP — AI governance assessment toolkit (A3 assess, evidence chain, compliance, passport, scan, LGD knowledge). Bilingual EN-first. MIT.",
   "what_it_is_not": "Not a running commercial service. Not a third-party certification, compliance finding, or regulatory approval.",
   "reproduce": "See the README section \"运行测试 / Running the tests\"; commands are verbatim and require no private network.",
